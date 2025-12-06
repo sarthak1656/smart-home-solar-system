@@ -118,10 +118,11 @@ const App = () => {
               </div>
               <span
                 className={`text-xl font-bold tracking-tight ${
-                  scrolled ? "text-slate-900" : "text-slate-900 lg:text-white"
+                  scrolled ? "text-slate-900" : "text-white"
                 }`}
               >
-                Smart Home <span className="text-emerald-500">Solar</span> System
+                Smart Home <span className="text-emerald-500">Solar</span>{" "}
+                System
               </span>
             </div>
 
