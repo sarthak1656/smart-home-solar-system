@@ -208,7 +208,7 @@ const App = () => {
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+        className="relative min-h-screen flex items-center pt-20 pb-40 md:pb-24 overflow-hidden"
       >
         {/* Dynamic Background */}
         <div className="absolute inset-0 z-0">
@@ -222,9 +222,9 @@ const App = () => {
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-48 md:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+            <div className="space-y-8 mb-8 md:mb-0">
               <RevealOnScroll>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 backdrop-blur-sm">
                   <span className="relative flex h-2 w-2">
@@ -255,17 +255,17 @@ const App = () => {
               </RevealOnScroll>
 
               <RevealOnScroll delay={600}>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 z-20 relative mb-12 md:mb-0">
                   <button
                     onClick={() => scrollToSection("contact")}
-                    className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 group"
+                    className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 group w-full sm:w-auto"
                   >
                     Calculate Savings{" "}
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                   <button
                     onClick={() => scrollToSection("about")}
-                    className="group px-8 py-4 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2"
+                    className="group px-8 py-4 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
                   >
                     <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1"></div>
@@ -315,7 +315,7 @@ const App = () => {
           </div>
 
           {/* Glass Stats Strip */}
-          <div className="absolute bottom-0 left-0 w-full border-t border-white/10 bg-slate-900/50 backdrop-blur-md">
+          <div className="absolute bottom-0 left-0 w-full border-t border-white/10 bg-slate-900/50 backdrop-blur-md mt-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
                 {[
