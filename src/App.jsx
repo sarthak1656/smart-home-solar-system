@@ -15,6 +15,11 @@ import {
   ArrowRight,
   ShieldCheck,
   Leaf,
+  Grid3x3,
+  Power,
+  Activity,
+  Camera,
+  Droplet,
 } from "lucide-react";
 
 // --- Utility Components for Animations ---
@@ -132,7 +137,7 @@ const App = () => {
                 scrolled ? "text-slate-600" : "text-slate-800 lg:text-white/90"
               }`}
             >
-              {["Home", "About", "Services", "Testimonials"].map((item) => (
+              {["Home", "About", "Services", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() =>
@@ -184,23 +189,19 @@ const App = () => {
           }`}
         >
           <div className="p-6 space-y-4">
-            {["Home", "About", "Services", "Testimonials", "Contact"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() =>
-                    scrollToSection(
-                      item.toLowerCase() === "home"
-                        ? "hero"
-                        : item.toLowerCase()
-                    )
-                  }
-                  className="block w-full text-left text-lg font-medium text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-3 rounded-xl transition-colors"
-                >
-                  {item}
-                </button>
-              )
-            )}
+            {["Home", "About", "Services", "Contact"].map((item) => (
+              <button
+                key={item}
+                onClick={() =>
+                  scrollToSection(
+                    item.toLowerCase() === "home" ? "hero" : item.toLowerCase()
+                  )
+                }
+                className="block w-full text-left text-lg font-medium text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-3 rounded-xl transition-colors"
+              >
+                {item}
+              </button>
+            ))}
           </div>
         </div>
       </nav>
@@ -428,14 +429,14 @@ const App = () => {
           <RevealOnScroll>
             <div className="text-center max-w-3xl mx-auto mb-20">
               <h2 className="text-emerald-600 font-bold tracking-widest text-sm uppercase mb-3">
-                Our Expertise
+                Our Services
               </h2>
               <h3 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                Complete Energy Ecosystems
+                Complete Solar Solutions
               </h3>
               <p className="text-lg text-slate-600">
-                Seamlessly integrated hardware and software solutions for the
-                modern smart home.
+                From residential to commercial, we provide comprehensive solar
+                energy solutions tailored to your needs.
               </p>
             </div>
           </RevealOnScroll>
@@ -443,39 +444,33 @@ const App = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <ServiceCard
               delay={0}
-              icon={<Sun />}
-              title="Premium Solar"
-              desc="High-efficiency monocrystalline panels designed to perform in low light and high heat conditions."
+              icon={<Grid3x3 />}
+              title="On Grid Solar System"
+              desc="Connected to the utility grid, allowing you to sell excess energy back and reduce electricity bills significantly."
             />
             <ServiceCard
               delay={100}
-              icon={<Battery />}
-              title="Energy Storage"
-              desc="Tesla Powerwall & Enphase certified installers. Keep your lights on when the grid goes down."
+              icon={<Power />}
+              title="Off Grid Solar System"
+              desc="Complete energy independence with battery storage. Perfect for remote locations without grid access."
             />
             <ServiceCard
               delay={200}
-              icon={<Zap />}
-              title="EV Integration"
-              desc="Level 2 fast charging stations integrated directly with your solar inverter for 'Sunshine Driving'."
+              icon={<Activity />}
+              title="Hybrid Solar System"
+              desc="Best of both worlds - grid connection with battery backup for uninterrupted power supply and maximum savings."
             />
             <ServiceCard
               delay={300}
-              icon={<ShieldCheck />}
-              title="24/7 Monitoring"
-              desc="Advanced pearl-level monitoring detects micro-inefficiencies before they impact your bill."
+              icon={<Camera />}
+              title="Solar CCTV Street Light System"
+              desc="Solar-powered street lighting with integrated CCTV cameras for enhanced security and surveillance."
             />
             <ServiceCard
               delay={400}
-              icon={<Leaf />}
-              title="Eco Smart Home"
-              desc="Integration with Nest, Ecobee, and smart loads to automatically optimize usage curves."
-            />
-            <ServiceCard
-              delay={500}
-              icon={<Wrench />}
-              title="White Glove Service"
-              desc="Our concierge team handles all permits, HOAs, and inspections. You just flip the switch."
+              icon={<Droplet />}
+              title="Solar Water Pump System"
+              desc="Efficient solar-powered water pumping solutions for irrigation, domestic use, and agricultural applications."
             />
           </div>
         </div>
@@ -551,26 +546,33 @@ const App = () => {
                   <h3 className="text-3xl font-bold mb-6">
                     Let's power your future.
                   </h3>
-                  <p className="text-slate-300 mb-12 text-lg">
+                  <p className="text-slate-300 mb-8 text-lg">
                     Get a custom solar design proposal including savings
                     estimates and 3D roof rendering.
                   </p>
+
+                  <div className="mb-8 pb-8 border-b border-white/10">
+                    <p className="text-white font-semibold text-lg mb-1">
+                      Sangram K. Singh
+                    </p>
+                    <p className="text-slate-300 text-sm">Managing Partner</p>
+                  </div>
 
                   <div className="space-y-8">
                     <ContactItem
                       icon={<Phone />}
                       title="Call Us"
-                      detail="(555) 123-4567"
+                      detail="+91 75408 36582"
                     />
                     <ContactItem
                       icon={<Mail />}
                       title="Email"
-                      detail="hello@smarthomesolar.com"
+                      detail="smarthomesolarsystem@gamil.com"
                     />
                     <ContactItem
                       icon={<MapPin />}
                       title="Visit"
-                      detail="123 Sun Valley Dr, Solar City"
+                      detail="Plot No.: 3761/5453/947, Satyabhama Niwas, GGP Enclave, Pandara, Bhubaneswar - 751 025"
                     />
                   </div>
                 </div>
@@ -719,14 +721,15 @@ const App = () => {
               <h4 className="text-white font-bold mb-6">Visit HQ</h4>
               <div className="rounded-xl overflow-hidden h-40 border border-slate-800 bg-slate-900 relative group">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.063689685934!2d-122.4194154846819!3d37.77492927975903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sTwitter+HQ!5e0!3m2!1sen!2sus!4v1530663777777"
+                  src="https://www.google.com/maps?q=20.297700,85.870771&hl=en&z=15&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
-                  allowFullScreen=""
+                  allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="filter grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500"
+                  title="Smart Home Solar System Location"
                 ></iframe>
               </div>
               <p className="mt-4 text-xs text-slate-500 flex items-start gap-2">
