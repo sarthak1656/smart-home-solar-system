@@ -61,7 +61,7 @@ const Contact = () => {
                   <ContactItem
                     icon={<Mail />}
                     title="Email"
-                    detail="smarthomesolarsystem@gamil.com"
+                    detail="smarthomesolarsystem@gmail.com"
                   />
                   <ContactItem
                     icon={<MapPin />}
