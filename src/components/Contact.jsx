@@ -1,5 +1,6 @@
-import React from "react";
-import { Phone, Mail, MapPin, ChevronDown } from "lucide-react";
+import React, { useState } from "react";
+import { Phone, Mail, MapPin, ChevronDown, CheckCircle, AlertCircle } from "lucide-react";
+import axios from 'axios';
 
 const ContactItem = ({ icon, title, detail }) => (
   <div className="flex items-center gap-4">
@@ -15,27 +16,37 @@ const ContactItem = ({ icon, title, detail }) => (
   </div>
 );
 
-const InputGroup = ({ label, placeholder, type = "text", className = "" }) => (
+const InputGroup = ({ label, placeholder, type = "text", className = "", name, value, onChange }) => (
   <div className={className}>
     <label className="block text-sm font-semibold text-slate-700 mb-2">
       {label}
     </label>
     <input
       type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
       placeholder={placeholder}
+      required
       className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-slate-400"
     />
   </div>
 );
 
-const SelectGroup = ({ label, options }) => (
+const SelectGroup = ({ label, options, name, value, onChange }) => (
   <div>
     <label className="block text-sm font-semibold text-slate-700 mb-2">
       {label}
     </label>
     <div className="relative">
-      <select className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all appearance-none text-slate-600">
-        <option value="" disabled selected>Select a service...</option>
+      <select 
+        name={name}
+        value={value}
+        onChange={onChange}
+        required
+        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all appearance-none text-slate-600"
+      >
+        <option value="" disabled>Select a service...</option>
         {options.map((opt, index) => (
           <option key={index} value={opt}>
             {opt}
@@ -47,13 +58,16 @@ const SelectGroup = ({ label, options }) => (
   </div>
 );
 
-const TextAreaGroup = ({ label, placeholder }) => (
+const TextAreaGroup = ({ label, placeholder, name, value, onChange }) => (
   <div>
     <label className="block text-sm font-semibold text-slate-700 mb-2">
       {label}
     </label>
     <textarea
       rows="4"
+      name={name}
+      value={value}
+      onChange={onChange}
       placeholder={placeholder}
       className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-slate-400 resize-none"
     ></textarea>
@@ -61,6 +75,18 @@ const TextAreaGroup = ({ label, placeholder }) => (
 );
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    service: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const serviceOptions = [
     "On Grid Solar System",
     "Off Grid Solar System",
@@ -68,6 +94,37 @@ const Contact = () => {
     "Solar CCTV Street Light System",
     "Solar Water Pump System",
   ];
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      await axios.post('https://smart-home-solar-system-backend.onrender.com/api/inquiries', formData);
+      setStatus({ type: 'success', message: 'Thank you! We will contact you soon.' });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        address: '',
+        service: '',
+        message: ''
+      });
+    } catch (error) {
+      setStatus({ 
+        type: 'error', 
+        message: error.response?.data?.message || 'Something went wrong. Please try again.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-32 bg-slate-50 relative">
@@ -112,12 +169,32 @@ const Contact = () => {
 
             {/* Right Side - Form */}
             <div className="p-12 lg:p-20 bg-white">
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {status.message && (
+                  <div className={`p-4 rounded-xl flex items-center gap-2 ${
+                    status.type === 'success' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
+                  }`}>
+                    {status.type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
+                    {status.message}
+                  </div>
+                )}
                 
                 {/* Name Fields */}
                 <div className="grid md:grid-cols-2 gap-6">
-                  <InputGroup label="First Name" placeholder="John" />
-                  <InputGroup label="Last Name" placeholder="Doe" />
+                  <InputGroup 
+                    label="First Name" 
+                    placeholder="John" 
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  <InputGroup 
+                    label="Last Name" 
+                    placeholder="Doe" 
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 {/* Email & Phone */}
@@ -126,11 +203,17 @@ const Contact = () => {
                     label="Email Address"
                     placeholder="john@example.com"
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                   <InputGroup
                     label="Phone Number"
                     placeholder="+91 98765 43210"
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -138,22 +221,35 @@ const Contact = () => {
                 <InputGroup 
                   label="Address" 
                   placeholder="Street address, City, State, Zip" 
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
                 />
 
                 {/* Service Selection */}
                 <SelectGroup 
                   label="Interested Service" 
                   options={serviceOptions} 
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
                 />
 
                 {/* Message Area */}
                 <TextAreaGroup 
                   label="Message" 
                   placeholder="Tell us about your requirements..." 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                 />
 
-                <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-5 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transform hover:-translate-y-1 transition-all duration-300">
-                  Get My Free Proposal
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-5 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Get My Free Proposal'}
                 </button>
                 <p className="text-center text-xs text-slate-400">
                   No spam. Unsubscribe anytime.
