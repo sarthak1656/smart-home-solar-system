@@ -1,12 +1,23 @@
 import React from "react";
-import { ArrowRight, Zap, ShieldCheck, CheckCircle } from "lucide-react";
+import { ArrowRight, Zap, ShieldCheck, CheckCircle, MessageCircle, Phone } from "lucide-react";
 import RevealOnScroll from "./RevealOnScroll";
 
 const Hero = () => {
+  // 1. Function to handle WhatsApp Redirection
+  const handleWhatsAppClick = () => {
+    // REPLACE with your actual phone number (include country code, e.g., 919876543210)
+    const phoneNumber = "917540836582"; 
+    const message = "Hello, I am interested in Smart Home Solar Systems.";
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
   
+  // (Optional) Kept this in case you use it elsewhere, though the button for it is gone
   const scrollToAbout = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -62,22 +73,27 @@ const Hero = () => {
 
             <RevealOnScroll delay={600}>
               <div className="flex flex-col sm:flex-row gap-4 z-20 relative mb-12 md:mb-0">
+                
+                {/* BUTTON 1: WhatsApp Button */}
                 <button
-                  onClick={scrollToContact}
+                  onClick={handleWhatsAppClick}
                   className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 group w-full sm:w-auto"
                 >
-                  Calculate Savings{" "}
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  WhatsApp
+                  <MessageCircle className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
+
+                {/* BUTTON 2: Contact Now Button */}
                 <button
-                  onClick={scrollToAbout}
+                  onClick={scrollToContact}
                   className="group px-8 py-4 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1"></div>
+                    <Phone className="h-4 w-4 fill-current" />
                   </div>
-                  How It Works
+                  Contact Now
                 </button>
+
               </div>
             </RevealOnScroll>
           </div>

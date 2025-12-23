@@ -68,14 +68,15 @@ const Footer = () => {
             </div>
             <p className="mt-4 text-xs text-slate-500 flex items-start gap-2">
               <MapPin className="h-4 w-4 shrink-0 text-emerald-500" />
-              123 Sun Valley Dr, Solar City, CA 90210
+              Plot No.: 3761/5453/947, Satyabhama Niwas, GGP Enclave, Pandara,
+              Bhubaneswar - 751 025
             </p>
           </div>
         </div>
 
         <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-sm">
-            © 2024 Smart Home Solar Systems. All rights reserved.
+            © 2025 Smart Home Solar Systems. All rights reserved.
           </p>
           <div className="flex gap-6">
             {["Twitter", "LinkedIn", "Instagram"].map((social) => (

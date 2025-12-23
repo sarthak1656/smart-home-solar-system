@@ -28,7 +28,7 @@ const About = () => {
                   ))}
                 </div>
                 <p className="font-bold text-slate-900">
-                  #1 Rated Solar Provider 2024
+                  #1 Rated Solar Provider 2025
                 </p>
               </div>
             </div>
@@ -44,10 +44,10 @@ const About = () => {
                 <span className="text-emerald-600">Smart Energy.</span>
               </h2>
               <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                We don't just bolt panels to your roof. We engineer comprehensive
-                energy ecosystems. At Smart Home Solar, we combine Tier-1
-                photovoltaic technology with AI-driven monitoring to ensure every
-                ray of sunshine counts.
+                We don't just bolt panels to your roof. We engineer
+                comprehensive energy ecosystems. At Smart Home Solar, we combine
+                Tier-1 photovoltaic technology with AI-driven monitoring to
+                ensure every ray of sunshine counts.
               </p>
               <div className="space-y-6 mt-10">
                 {[
