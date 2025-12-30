@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff, Loader } from "lucide-react";
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
 
       const { data } = await axios.post(
-        'https://smart-home-solar-system-backend.onrender.com/api/auth/login',
+        "https://smart-home-solar-system-backend.onrender.com/api/auth/login",
         { username, password },
         config
       );
 
-      localStorage.setItem('adminInfo', JSON.stringify(data));
-      navigate('/admin/dashboard');
+      localStorage.setItem("adminInfo", JSON.stringify(data));
+      navigate("/admin/dashboard");
     } catch (err) {
       setError(
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message
       );
+      setLoading(false);
     }
   };
 
@@ -73,7 +77,7 @@ const AdminLogin = () => {
             </label>
 
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 pr-12 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
@@ -93,9 +97,17 @@ const AdminLogin = () => {
           {/* Login button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 rounded-xl hover:shadow-lg transition-all"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 rounded-xl hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Login
+            {loading ? (
+              <>
+                <Loader size={20} className="animate-spin" />
+                <span>Please wait...</span>
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
       </div>
